@@ -1,11 +1,13 @@
 import discord
+from discord.ext import commands
+import command
 import logging
-import time
-import random
+
 
 TOKEN = "OTUzOTgzMTE1MzAxMzc2MDUx.YjMgAg.-_cTYSWTueDFbUgkqqJRE8Y10g0"
 
 client = discord.Client()
+bot = commands.Bot(command_prefix="+", intents=discord.Intents.all())
 
 
 @client.event
@@ -24,12 +26,6 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    if message.channel.name == "bot-spam":
-        if userid == "748618875180154980" and user_message.lower() == "!quit":
-            await message.channel.send(f"Going back to grinding..")
-            await client.close()
-            return
-
 
 logger = logging.getLogger("discord")
 logger.setLevel(logging.DEBUG)
@@ -39,4 +35,4 @@ handler.setFormatter(
 )
 logger.addHandler(handler)
 
-client.run(TOKEN)
+bot.run(TOKEN)

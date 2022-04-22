@@ -1,11 +1,14 @@
-import os
 import discord
 from discord.ext import commands
 
 TOKEN = "OTUzOTgzMTE1MzAxMzc2MDUx.YjMgAg.-_cTYSWTueDFbUgkqqJRE8Y10g0"
 
 client = discord.Client()
-bot = commands.Bot(command_prefix="+")
+bot = commands.Bot(command_prefix="+", intents=discord.Intents.all())
+
+bot.lavalink_nodes = [
+    {"host": "losingtime.dpaste.org", "port": 2124, "password": "SleepingOnTrains"},
+]
 
 
 @bot.event
@@ -13,13 +16,12 @@ async def on_ready():
     print("Logged in as", bot.user.name)
 
 
-@bot.command()
-async def shutdown(ctx):
-    if (
-        ctx.channel.id == 953990615018913802
-        and ctx.message.author.id == "748618875180154980"
-    ):
-        await ctx.logout()
+@bot.command(aliases=["quit"])
+@commands.has_any_role("Developer", 748618875180154980)
+async def close(ctx):
+    await bot.close()
+    print("Bot Closed")
+    exit()
 
 
 @bot.command(pass_context=True)
@@ -60,4 +62,5 @@ async def info(ctx):
         await ctx.send(ctx.message.id)
 
 
+bot.load_extension("dismusic")
 bot.run(TOKEN)
