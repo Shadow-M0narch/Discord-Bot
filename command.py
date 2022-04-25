@@ -4,7 +4,7 @@ from discord.ext import commands
 TOKEN = "OTUzOTgzMTE1MzAxMzc2MDUx.YjMgAg.-_cTYSWTueDFbUgkqqJRE8Y10g0"
 
 client = discord.Client()
-bot = commands.Bot(command_prefix="+", intents=discord.Intents.all())
+bot = commands.Bot(command_prefix="+")
 
 bot.lavalink_nodes = [
     {"host": "losingtime.dpaste.org", "port": 2124, "password": "SleepingOnTrains"},
